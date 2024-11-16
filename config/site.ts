@@ -9,8 +9,8 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "文章",
-      href: "/docs",
+      label: "博客",
+      href: "/blog",
     },
     {
       label: "关于",

@@ -3,7 +3,7 @@ import { Image } from "@nextui-org/image";
 
 export default function Home() {
   return (
-    <section>
+    <section className="grid grid-cols-2 gap-4">
       <Card className="py-4">
         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
           <p className="text-tiny uppercase font-bold">Daily Mix</p>
