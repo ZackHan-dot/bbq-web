@@ -19,7 +19,7 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <Image alt="logo" height={40} src="/logo.png" width={40} />
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <p className="font-bold text-inherit">BBQ WEB</p>
+            <p className="font-bold text-inherit">小韩日记</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-5">
