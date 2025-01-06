@@ -6,31 +6,56 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "eslint --fix --quiet .",
+    "prepare": "husky",
+    "commit": "npx git-cz"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-slot": "^1.1.1",
-    "ahooks": "^3.8.4",
+    "ahooks": "^3.7.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
     "lucide-react": "^0.469.0",
     "next": "15.0.3",
     "next-themes": "^0.4.4",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
     "postcss": "^8",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "./**/*.{js,cjs,mjs,jsx,ts,tsx}": [
+      "npm run lint:fix"
+    ]
+  },
+  "engines": {
+    "node": ">= 18"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
