@@ -1,17 +1,6 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import './globals.css';
-
-const geistSans = localFont({
-    src: './fonts/GeistVF.woff',
-    variable: '--font-geist-sans',
-    weight: '100 900',
-});
-const geistMono = localFont({
-    src: './fonts/GeistMonoVF.woff',
-    variable: '--font-geist-mono',
-    weight: '100 900',
-});
+import '@/styles/global.css';
+import { ThemeProvider } from '@/providers';
 
 export const metadata: Metadata = {
     title: '小韩日记｜个人博客',
@@ -24,11 +13,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                {children}
+        <html lang="en" suppressHydrationWarning>
+            <head />
+            <body>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );
