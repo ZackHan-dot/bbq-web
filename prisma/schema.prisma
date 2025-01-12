@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  nickname  String?  @db.VarChar(255)
+  email     String?  @unique @db.VarChar(255)
+  Post      Post[]
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+
+  @@map("users")
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  title       String   @unique @db.VarChar(255)
+  slug        String   @unique @db.VarChar(255)
+  content     String   @db.LongText
+  description String?  @db.Text
+  published   Boolean? @default(false)
+  coverLink   String?  @map("cover_link") @db.VarChar(255)
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+  // https://github.com/prisma/prisma/issues/7724
+  updatedAt   DateTime @default(dbgenerated("CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0)")) @map("updated_at") @db.Timestamp(0)
+  Tag         Tag[]
+
+  @@map("posts")
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime @default(dbgenerated("CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0)")) @map("updated_at") @db.Timestamp(0)
+  Post      Post[]
+
+  @@map("tags")
+}
