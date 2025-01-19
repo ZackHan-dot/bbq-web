@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+import { useSession } from "next-auth/react";
+
 import { Monitor, ReceiptText } from "lucide-react";
 
 import {
@@ -21,7 +23,7 @@ import { NavProjects } from "./nav-projects";
 
 const data = {
   user: {
-    name: "hanzongyuan",
+    name: "example",
     email: "test@example.com",
     avatar: "/avatar.png",
   },
@@ -40,6 +42,13 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: session } = useSession();
+  data.user.name =
+    session?.user?.name ||
+    session?.user?.email?.split("@")?.[0] ||
+    data.user.name;
+  data.user.email = session?.user?.email || data.user.email;
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>

@@ -7,6 +7,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// 用户信息表
 model User {
   id            String          @id @default(cuid())
   name          String?
@@ -21,8 +22,11 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("users")
 }
 
+// 第三方账户表
 model Account {
   id                       String  @id @default(cuid())
   userId                   String  @unique
@@ -44,8 +48,10 @@ model Account {
 
   @@unique([provider, providerAccountId])
   @@index([userId])
+  @@map("accounts")
 }
 
+// 会话表，存储用户的会话信息，每次用户登录时，都会在这个表中创建一条记录，用于跟踪用户的会话状态。会话通常用于保持用户的登录状态，使用户在一段时间内不需要重新登录
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -57,14 +63,17 @@ model Session {
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+  @@map("sessions")
 }
 
+// 验证令牌，每次登录时生成，登录成功后删除
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
 
   @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 
 // Optional for WebAuthn support
@@ -81,4 +90,5 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+  @@map("authenticators")
 }

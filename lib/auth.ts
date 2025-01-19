@@ -17,7 +17,7 @@ export const { handlers, auth, signOut, signIn } = NextAuth({
   ],
   // 解决这个错误：Error: PrismaClient is not configured to run in Vercel Edge Functions or Edge Middleware.
   // 参考：https://github.com/prisma/prisma/issues/21310#issuecomment-1840428931
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt" }, // 采用jwt会话策略，NextAuth会在客户端存储jwt token，而不是存储在数据库Session中
   trustHost: true,
   pages: {
     signIn: PATHS.AUTH_SIGN_IN,
