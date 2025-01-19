@@ -17,7 +17,7 @@ export default function HttpEmail(config: NodemailerUserConfig): EmailConfig {
     async sendVerificationRequest(params) {
       const { identifier, url, theme, provider, token } = params;
       const { host, origin } = new URL(url);
-      // 需要手动生成 Magic Link，自动处理的会出现嵌套问题
+      // 需要手动生成 Magic Link，自动处理的会出现嵌套问题 https://github.com/nextauthjs/next-auth/issues/5409
       const magicLink = `${(provider as unknown as { callbackUrl: string }).callbackUrl}?callbackUrl=${encodeURIComponent(origin + PATHS.ADMIN_HOME)}&token=${token}&email=${identifier}`;
       const absoluteUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-email`; // 使用绝对 URL
       const res = await fetch(absoluteUrl, {
