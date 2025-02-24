@@ -1,5 +1,5 @@
 export const NICKNAME = "Mr.Han";
-export const WEBSITE = "认真的维尼熊";
+export const WEBSITE = "HzyCoder";
 export const SLOGAN = "越努力，越幸运";
 /** 网站ICP备案号 */
 export const BEI_AN_NUMBER = "京ICP备2024094880号";

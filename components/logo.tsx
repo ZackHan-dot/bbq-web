@@ -7,6 +7,6 @@ interface Props {
 
 export const Logo = ({ className }: Props) => {
   return (
-    <img className={cn("w-8 h-8", className)} src="/logo.png" alt={WEBSITE} />
+    <img className={cn("w-10", className)} src="/logo.svg" alt={WEBSITE} />
   );
 };

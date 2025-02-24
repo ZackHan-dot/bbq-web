@@ -6,7 +6,7 @@ export const PATHS = {
   AUTH_SIGN_IN: "/auth/sign_in",
 
   ADMIN_HOME: "/admin",
-  ADMIN_CARD: "/admin/card",
+  ADMIN_BLOG: "/admin/blog",
 };
 
 export const PATHS_MAP = {
@@ -17,5 +17,5 @@ export const PATHS_MAP = {
   [PATHS.AUTH_SIGN_IN]: "登录",
 
   [PATHS.ADMIN_HOME]: "首页",
-  [PATHS.ADMIN_CARD]: "卡牌",
+  [PATHS.ADMIN_BLOG]: "博客",
 };

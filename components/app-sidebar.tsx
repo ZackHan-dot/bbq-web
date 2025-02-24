@@ -34,8 +34,8 @@ const data = {
       icon: Monitor,
     },
     {
-      name: PATHS_MAP[PATHS.ADMIN_CARD],
-      url: PATHS.ADMIN_CARD,
+      name: PATHS_MAP[PATHS.ADMIN_BLOG],
+      url: PATHS.ADMIN_BLOG,
       icon: ReceiptText,
     },
   ],

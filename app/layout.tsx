@@ -6,8 +6,8 @@ import { ThemeProvider } from "@/providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "认真的维尼熊",
-  description: "分享故事，创作乐趣",
+  title: "HzyCoder | 韩宗源的个人网站",
+  description: "书山有路勤为径，学海无涯苦作舟！！！",
 };
 
 export default function RootLayout({
