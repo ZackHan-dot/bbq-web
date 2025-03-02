@@ -21,6 +21,7 @@ export const { handlers, auth, signOut, signIn } = NextAuth({
   trustHost: true,
   pages: {
     signIn: PATHS.AUTH_SIGN_IN,
+    verifyRequest: PATHS.AUTH_VERIFY_REQUEST,
   },
   debug: process.env.NODE_ENV === "development",
   callbacks: {

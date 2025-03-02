@@ -4,6 +4,8 @@ import { FormEvent, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { Loader2 } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,6 +23,7 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"div">) {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleBackHome = () => {
     router.push(PATHS.SITE_HOME);
@@ -29,11 +32,14 @@ export function LoginForm({
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      setLoading(true);
       await signInWithEmail({
         email,
       });
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,7 +72,8 @@ export function LoginForm({
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <Button type="submit" className="w-full">
+            <Button disabled={loading} type="submit" className="w-full">
+              {loading && <Loader2 className="animate-spin" />}
               登录
             </Button>
           </div>
