@@ -1,3 +1,5 @@
+"use client";
+
 import { SidebarBreadcrumb } from "@/components/sidebar-breadcrumb";
 
 export default function Page() {
