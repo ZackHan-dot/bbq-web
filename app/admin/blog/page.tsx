@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useState } from "react";
 
 import {
   ColumnDef,
@@ -15,6 +15,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -37,6 +38,8 @@ import {
 } from "@/components/ui/table";
 
 import { SidebarBreadcrumb } from "@/components/sidebar-breadcrumb";
+
+import { fpost } from "@/lib/utils";
 
 const data: Payment[] = [
   {
@@ -170,13 +173,10 @@ export const columns: ColumnDef<Payment>[] = [
 ];
 
 export default function Page() {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
     data,
@@ -196,6 +196,19 @@ export default function Page() {
       rowSelection,
     },
   });
+
+  const createPost = async () => {
+    try {
+      const { code, data } = await fpost("/api/blogs", { test: 1 });
+      console.log(code, data);
+    } catch (error) {
+      toast.error(String(error));
+    }
+  };
+
+  useEffect(() => {
+    createPost();
+  }, []);
 
   return (
     <div className="w-full">

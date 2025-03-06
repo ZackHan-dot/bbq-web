@@ -58,3 +58,63 @@ export function html(params: {
 export function text({ url, host }: { url: string; host: string }) {
   return `Sign in to ${host}\n${url}\n\n`;
 }
+
+async function service(url: string, options = {}) {
+  const defaultOptions: {
+    method: "GET" | "POST";
+    headers: Record<string, string>;
+    body: BodyInit | null | undefined;
+    query: Record<string, string>;
+  } = {
+    method: "GET", // 默认是 GET 请求
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: null,
+    query: {}, // 查询参数对象
+  };
+
+  // 合并默认选项和用户提供的选项
+  const requestOptions = { ...defaultOptions, ...options };
+
+  // 如果有查询参数，则构建完整的 URL
+  let fullUrl = url;
+  if (Object.keys(requestOptions.query).length > 0) {
+    const queryString = new URLSearchParams(requestOptions.query).toString();
+    fullUrl = `${url}?${queryString}`;
+  }
+
+  // 如果请求方法不是 GET 或 DELETE，并且有 body，则转换为 JSON 字符串
+  if (
+    ["POST", "PUT", "PATCH"].includes(requestOptions.method) &&
+    requestOptions.body
+  ) {
+    requestOptions.body = JSON.stringify(requestOptions.body);
+  }
+
+  try {
+    const response = await fetch(fullUrl, requestOptions);
+
+    // 检查响应状态码是否成功
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // 尝试解析 JSON 响应
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error; // 抛出错误以便调用者可以处理
+  }
+}
+
+// 辅助函数：生成特定类型的请求
+export function fget(url: string, query = {}) {
+  return service(url, { method: "GET", query });
+}
+
+export function fpost(url: string, body = {}, query = {}) {
+  return service(url, { method: "POST", body, query });
+}

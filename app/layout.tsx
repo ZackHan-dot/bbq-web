@@ -3,6 +3,8 @@ import { SessionProvider } from "next-auth/react";
 
 import { ThemeProvider } from "@/providers";
 
+import { Toaster } from "@/components/ui/sonner";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,6 +32,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </SessionProvider>
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );
