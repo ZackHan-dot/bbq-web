@@ -8,6 +8,7 @@ export const PATHS = {
 
   ADMIN_HOME: "/admin",
   ADMIN_BLOG: "/admin/blog",
+  ADMIN_BLOG_CREATE: "/admin/blog/create",
 };
 
 export const PATHS_MAP = {
@@ -20,4 +21,5 @@ export const PATHS_MAP = {
 
   [PATHS.ADMIN_HOME]: "首页",
   [PATHS.ADMIN_BLOG]: "博客",
+  [PATHS.ADMIN_BLOG_CREATE]: "新建博文",
 };

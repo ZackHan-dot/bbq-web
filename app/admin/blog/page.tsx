@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+import { useRouter } from "next/navigation";
 
 import {
   ColumnDef,
@@ -15,7 +17,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -38,8 +39,6 @@ import {
 } from "@/components/ui/table";
 
 import { SidebarBreadcrumb } from "@/components/sidebar-breadcrumb";
-
-import { fpost } from "@/lib/utils";
 
 const data: Payment[] = [
   {
@@ -177,6 +176,7 @@ export default function Page() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  const router = useRouter();
 
   const table = useReactTable({
     data,
@@ -197,24 +197,15 @@ export default function Page() {
     },
   });
 
-  const createPost = async () => {
-    try {
-      const { code, data } = await fpost("/api/blogs", { test: 1 });
-      console.log(code, data);
-    } catch (error) {
-      toast.error(String(error));
-    }
+  const handleCreatePost = () => {
+    router.push("/admin/blog/create");
   };
-
-  useEffect(() => {
-    createPost();
-  }, []);
 
   return (
     <div className="w-full">
       <SidebarBreadcrumb />
       <div className="px-4">
-        <div className="flex items-center py-4">
+        <div className="flex justify-between items-center py-4">
           <Input
             placeholder="Filter emails..."
             value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
@@ -223,6 +214,7 @@ export default function Page() {
             }
             className="max-w-sm"
           />
+          <Button onClick={handleCreatePost}>新建博文</Button>
         </div>
         <div className="rounded-md border">
           <Table>
@@ -286,7 +278,7 @@ export default function Page() {
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
             >
-              Previous
+              上一页
             </Button>
             <Button
               variant="outline"
@@ -294,7 +286,7 @@ export default function Page() {
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >
-              Next
+              下一页
             </Button>
           </div>
         </div>

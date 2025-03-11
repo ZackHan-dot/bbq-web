@@ -105,7 +105,7 @@ model Post {
   authorId   String
   author     User      @relation(fields: [authorId], references: [id])
   comments   Comment[]
-  categoryId String?
+  categoryId Int?
   category   Category? @relation(fields: [categoryId], references: [id])
   tags       Tag[]     @relation("PostTags")
 
@@ -116,7 +116,7 @@ model Post {
 }
 
 model Category {
-  id   String @id
+  id   Int    @id @default(autoincrement())
   name String @unique
   Post Post[]
 
